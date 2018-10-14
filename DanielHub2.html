@@ -1,0 +1,153 @@
+<html>
+    <head>
+            
+      <title>
+          DanielHub
+      </title>  
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+
+<div class = "w3-container w3-mobile">
+    <div class = "w3-display-top w3-center w3-border w3-border-black w3-topbar w3-leftbar w3-rightbar w3-bottombar w3-round-large w3-text-white" id = "heading">
+        
+        <div class = "w3-animate-right" id = "anime"><h1 style="text-shadow:1px 1px 0 #444"> <b>Welcome to the </b></h1></div>
+        <div class = "w3-animate-left"  id = "anime"><h1 style=" text-shadow:1px 1px 0 #444"> <b>Final Grade Calculator</b></h1></div>
+ 
+    </div>
+
+    
+    <div id = "pointSystem">
+            <div class =  "w3-light-gray w3-round" id = "percentage">
+
+                    <div class = "w3-display-bottom w3-center w3-animate-left" id = "anime">
+                    <h4> Enter your current percentage grade in the class:</h4>
+                    <form id = "frm1"></form>
+    
+                    <input class = " w3-input " id = "currentGrade" placeholder = "Ex. 93" type = "text">
+    
+                    <h4>Enter the grade percentage you want to finish the class with </h4> 
+                    <form id = "frm1"></form>
+                    <input class = " w3-input" id = "finalGrade" placeholder = "Ex. 90" type = "text">
+    
+                    <h4>What percent of your grade is your final worth?</h4>
+                    <form id = "frm1"></form> 
+                    <input class = "w3-input " id = "finalWorth" placeholder = "Ex. 40" type = "text">
+                    </div>
+                    <br \>
+                    <br \>
+    
+                    <button class = "w3-animate-bottom w3-bar w3-btn w3-black w3-round" id = "anime" onclick="myFunction()">Determine what I need on the final</button>
+                    </div>
+    </div>
+
+
+
+</div>
+
+    </body>
+    <style>
+    body{
+       background-image: url("https://s3-us-east-2.amazonaws.com/dsdmedia/wp-content/uploads/2017/02/26221913/study-materials.jpg");
+    }
+    #heading{
+        min-height: 100px;
+        padding:5px;
+    }
+   
+    #percentSystem{
+      min-height: 400px;
+       margin-top: 10%;
+       margin-left: 20%;
+       margin-right: 20%;
+    }
+
+    #anime{
+        padding:15px;
+        animation-duration: 1.5s;
+    }
+    </style>
+    <script>
+        //triggers when the button is pressed
+            function myFunction(){
+                //gets the input data from the input fields and casts them as an int
+                var currentGrade = parseInt(document.getElementById("currentGrade").value);
+                var finalGrade = parseInt(document.getElementById("finalGrade").value);
+                var finalWorth = parseInt(document.getElementById("finalWorth").value);
+
+                //the required grade is stored in this variable
+                var requiredGrade;
+
+                //boolean values that will be marked false if the any of the input values are invalid inputs
+                //if they are all left marked true then the required grade will be calculated.
+                var currentGradeCorrect = true;
+                var finalGradeCorrect = true;
+                var finalWorthCorrect = true;
+
+                //an array of preset messages that are select depending on what required grade the user needs to get
+                var message = 
+                [
+                "You don't even need to take the final :)", 
+                "I bet you don't even have to study to get that grade.",
+                "You might want to study a little, but it could be worst.",
+                "Good Luck! You got this.",
+                "This might seem hard to get, but you are almost there you got this!",
+                "Let's hope there's extra credit :^)."
+                ];
+
+                //in here the one selected preset message from the array will be stored
+              var displayedMessage;
+
+                //These if statements check if the inputs are not a number and if they are will display an error message
+                //the error message notifies the user which input box has an incorrect value
+                if(isNaN(currentGrade) ){
+                    alert("Please check your current grade");
+                    currentGradeCorrect = false;
+                }
+                if(isNaN(finalGrade)){
+                    alert("Please check your final grade");
+                    finalGradeCorrect = false;
+                }
+                if(isNaN(finalWorth) || finalWorth <= 0 || finalWorth > 100){
+                    alert("Please check your final worth");
+                    finalWorthCorrect = false;
+                }
+                
+                
+                    console.log(currentGrade);
+                    console.log(finalGrade);
+                    console.log(finalWorth);
+        
+                //checks to see if the booleans for the input boxes were true
+                    if(currentGradeCorrect && finalGrade && finalWorthCorrect){
+            requiredGrade = (((finalGrade  - ((100 - finalWorth)*(currentGrade/100))) /finalWorth)*100);
+                        //rounds the requiredGrade to two decimal places
+            requiredGrade = Math.round(requiredGrade * 100) / 100
+                   
+
+            if(requiredGrade <= 0){
+                displayedMessage = message[0];
+            }
+            else if(requiredGrade>0 && requiredGrade < 65){
+                displayedMessage = message[1];
+            }
+            else if(requiredGrade >= 65 &&  requiredGrade < 75){
+                displayedMessage = message[2];
+            }
+            else if(requiredGrade >= 75 &&  requiredGrade < 85){
+                displayedMessage = message[3];
+            }
+            else if(requiredGrade >= 85 &&  requiredGrade <= 100){
+                displayedMessage = message[4];
+            }
+            else if(requiredGrade > 100){
+                displayedMessage = message[5];
+            }
+                        
+                //Tells the user what the grade they on the final is 
+               alert("You need a " + requiredGrade + " percent on the final to finish with a " + finalGrade + " percent in the class. " + displayedMessage);
+               
+        }
+            }
+            </script>
+</html>
